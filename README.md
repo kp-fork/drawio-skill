@@ -22,7 +22,8 @@ Works with all major AI coding agents that support the [Agent Skills](https://ag
 | Platform | Status | Details |
 |----------|--------|---------|
 | **Claude Code** | ✅ Full support | Native SKILL.md format |
-| **OpenClaw** | ✅ Full support | `metadata.openclaw` namespace, dependency gating, installer |
+| **Opencode** | ✅ Full support | Native SKILL.md via `skill` tool; also reads `.claude/skills/` paths |
+| **OpenClaw / ClawHub** | ✅ Full support | `metadata.openclaw` namespace, dependency gating, ClawHub installer |
 | **Hermes Agent** | ✅ Full support | `metadata.hermes` namespace, tags, tool gating |
 | **OpenAI Codex** | ✅ Full support | `agents/openai.yaml` sidecar file |
 | **SkillsMP** | ✅ Indexed | GitHub topics configured |
@@ -55,7 +56,7 @@ Works with all major AI coding agents that support the [Agent Skills](https://ag
 |---------|-----------|---------------|-------------------|--------------|
 | **Approach** | Pure SKILL.md | SKILL.md / MCP / Project | YAML DSL + MCP | Plugin + browser |
 | **Dependencies** | draw.io desktop only | draw.io desktop | MCP server (`npx`) | Browser + local server |
-| **Multi-agent** | ✅ 5 platforms | ❌ Claude Code only | ❌ Claude Code only | ❌ |
+| **Multi-agent** | ✅ 6 platforms | ❌ Claude Code only | ❌ Claude Code only | ❌ |
 | **Self-check** | ✅ 2-round auto-fix | ❌ | ❌ | ❌ screenshot |
 | **Iterative review** | ✅ 5-round loop | ❌ generate once | ✅ 3 workflows | ❌ |
 | **Layout guidance** | ✅ complexity-scaled + grid snap | ✅ basic spacing | ❌ relies on MCP | ❌ |
@@ -76,7 +77,7 @@ Works with all major AI coding agents that support the [Agent Skills](https://ag
 1. **Self-check + iterative loop** — the only pure-SKILL.md solution that reads its own output and auto-fixes before showing the user, then supports multi-round refinement
 2. **6 diagram type presets** — ERD, UML Class, Sequence, Architecture, ML/Deep Learning, Flowchart — each with preset shapes, styles, and layout conventions
 3. **ML/DL model diagrams** — tensor shape annotations, layer-type color coding, encoder/decoder swimlanes — built for academic papers
-4. **Multi-agent, zero-config** — works across 5 platforms with just one `SKILL.md` file + draw.io desktop. No MCP server, no Python, no Node.js, no browser
+4. **Multi-agent, zero-config** — works across 6 platforms with just one `SKILL.md` file + draw.io desktop. No MCP server, no Python, no Node.js, no browser
 5. **Production-grade layout** — grid-aligned coordinates, complexity-scaled spacing, routing corridors, hub-center strategy, animated connectors
 6. **Browser fallback** — generates diagrams.net URLs when the desktop CLI is unavailable, plus auto-launch for desktop editing
 
@@ -146,6 +147,18 @@ git clone https://github.com/Agents365-ai/drawio-skill.git ~/.claude/skills/draw
 git clone https://github.com/Agents365-ai/drawio-skill.git .claude/skills/drawio-skill
 ```
 
+### Opencode
+
+```bash
+# Global install (Opencode-native path)
+git clone https://github.com/Agents365-ai/drawio-skill.git ~/.config/opencode/skills/drawio-skill
+
+# Project-level install
+git clone https://github.com/Agents365-ai/drawio-skill.git .opencode/skills/drawio-skill
+```
+
+Opencode also reads `~/.claude/skills/` and `.claude/skills/`, so an existing Claude Code install is automatically picked up — no second clone needed.
+
 ### OpenClaw
 
 ```bash
@@ -205,7 +218,8 @@ clawhub install drawio-pro-skill
 | Platform | Global path | Project path |
 |----------|-------------|--------------|
 | Claude Code | `~/.claude/skills/drawio-skill/` | `.claude/skills/drawio-skill/` |
-| OpenClaw | `~/.openclaw/skills/drawio-skill/` | `skills/drawio-skill/` |
+| Opencode | `~/.config/opencode/skills/drawio-skill/` (also reads `~/.claude/skills/`) | `.opencode/skills/drawio-skill/` (also reads `.claude/skills/`) |
+| OpenClaw / ClawHub | `~/.openclaw/skills/drawio-skill/` | `skills/drawio-skill/` |
 | Hermes Agent | `~/.hermes/skills/design/drawio-skill/` | Via `external_dirs` config |
 | OpenAI Codex | `~/.agents/skills/drawio-skill/` | `.agents/skills/drawio-skill/` |
 | SkillsMP | N/A (installed via CLI) | N/A |
@@ -278,7 +292,7 @@ CI/CD pipeline with a closed loop and 2 spur branches. Edges flow along the peri
 
 - `SKILL.md` — **the only required file**. Loaded by all platforms as the skill instructions.
 - `agents/openai.yaml` — OpenAI Codex-specific configuration (UI, policy)
-- `check-update.sh` — auto-runs on first skill use per conversation; self-throttled to once per 12h, silent when up to date
+- `update.sh` — auto-runs on first skill use per conversation; self-throttled to once per 12h, silent when up to date
 - `README.md` — this file (English, displayed on GitHub homepage)
 - `README_CN.md` — Chinese documentation
 - `assets/` — example diagrams and workflow images
