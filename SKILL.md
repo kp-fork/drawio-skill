@@ -295,9 +295,7 @@ When the Workflow's step *Resolve active preset* identified a preset, it fully r
 - `preset.extras.sketch === true` → append `sketch=1` to every vertex style and every edge style.
 - `preset.extras.globalStrokeWidth !== 1` (any value other than the drawio default of 1, including `0.5`) → append `strokeWidth=<n>` to every vertex style and every edge style.
 
-**Telling the user.** The first line of the generation response mentions which preset is active: *"Using preset `<name>` (confidence: `<level>`)."*
-
-**Interaction with diagram-type presets (ERD / UML / Sequence / ML / Flowchart).** Diagram-type presets earlier in this document set structural style keywords that the user preset must preserve (e.g., ERD tables rely on `shape=table;startSize=30;container=1;childLayout=tableLayout;...`). The rule: keep the diagram-type preset's structural keywords, then layer the user preset's color / font / edge / extras on top. When a diagram-type preset hardcodes a color (`fillColor=#dae8fc`, etc.) that conflicts with the user preset, the user preset's color wins.
+**Interaction with diagram-type presets (ERD / UML / Sequence / ML / Flowchart).** Diagram-type presets earlier in this document set structural style keywords that the user preset must preserve (e.g., ERD tables rely on `shape=table;startSize=30;container=1;childLayout=tableLayout;...`). The rule: keep the diagram-type preset's structural keywords, then layer the user preset's color / font / edge / extras on top. When a diagram-type preset hardcodes a color (`fillColor=#dae8fc`, etc.) that conflicts with the user preset, the user preset's color wins. Exception: `fillColor=none` is structural — do not replace it with a palette color.
 
 ### Color palette (fillColor / strokeColor)
 
