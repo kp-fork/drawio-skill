@@ -17,7 +17,7 @@
 一个把自然语言描述变成 `.drawio` XML，并通过 draw.io 桌面版原生 CLI 导出 PNG / SVG / PDF / JPG 的技能。支持 **Claude Code、Cursor、Copilot、OpenClaw、Codex、Hermes** 等任何兼容 [Agent Skills](https://agentskills.io) 规范的 agent。
 
 <p align="center">
-  <img src="assets/workflow-cn.png" width="900" alt="工作流程">
+  <img src="assets/microservices-example.png" width="900" alt="微服务架构图 —— 来自一条自然语言提示词">
 </p>
 
 ## ✨ 核心亮点
@@ -32,17 +32,13 @@
 ## 🖼️ 示例
 
 > [!TIP]
-> **试试这条提示词**，生成下图：
+> **页首那张图就是用下面这条提示词生成的：**
 
 ```
 画一个微服务电商架构图，包含 Mobile/Web/Admin 客户端，API Gateway（含认证+限流+路由），
 Auth/User/Order/Product/Payment 微服务，Kafka 消息队列，Notification 服务，
 以及 User DB / Order DB / Product DB / Redis Cache / Stripe API
 ```
-
-<p align="center">
-  <img src="assets/microservices-example.png" width="800" alt="微服务架构图">
-</p>
 
 Skill 还支持多种图表拓扑，线条路由清晰 —— 不会穿越无关的形状：
 
@@ -105,11 +101,12 @@ git clone https://github.com/Agents365-ai/drawio-skill.git \
 
 ## ⚡ 快速开始
 
-装好之后直接描述你想要的图表：
+装好之后直接描述你想要的图表，比如画一个 ML 模型：
 
 ```
-画一个微服务电商架构图，包含 API Gateway、用户/订单/商品/支付服务、
-Kafka 消息队列、通知服务，以及各自独立的数据库
+画一个用于机器翻译的 Transformer 编码器-解码器：6 层编码器（自注意力），
+6 层解码器（交叉注意力），输入嵌入（batch × 512 × 768），位置编码，
+最后一层输出投影。在层之间标注张量形状，按层类型配色。
 ```
 
 Skill 会自动规划布局、生成 `.drawio` XML、导出为你选择的格式、自检结果，并支持后续迭代。
@@ -138,6 +135,14 @@ Skill 会自动规划布局、生成 `.drawio` XML、导出为你选择的格式
 ```
 
 Skill 会提取配色、形状、字体和连线风格，渲染预览图，**确认后**才保存预设。完整管理命令见 [docs/STYLE_PRESETS_CN.md](docs/STYLE_PRESETS_CN.md)。
+
+## 🔄 工作流程
+
+<p align="center">
+  <img src="assets/workflow-cn.png" width="700" alt="内部工作流程">
+</p>
+
+幕后流程：**检查依赖 → 规划布局 → 生成 `.drawio` XML → 导出草稿 PNG → 自检 + 自动修复**（最多 2 轮）→ **展示给用户 → 5 轮反馈循环**直到满意 → **最终导出**。
 
 ## 🆚 对比
 
@@ -169,16 +174,16 @@ Skill 会提取配色、形状、字体和连线风格，渲染预览图，**确
 
 完整对比 + 核心优势总结见 [docs/COMPARISON_CN.md](docs/COMPARISON_CN.md)。_最近一次依据各 repo README 核查：2026-05-17 —— 如有出入欢迎提 issue / PR 修正。_
 
-## 📚 文档导航
+## 🔗 相关 Skill
 
-| 文档 | 内容 |
-|------|------|
-| [docs/INSTALL_CLI_CN.md](docs/INSTALL_CLI_CN.md) | macOS / Windows / Linux 各平台的 draw.io 桌面版 CLI 安装配方 |
-| [docs/INSTALL_SKILL_CN.md](docs/INSTALL_SKILL_CN.md) | 插件市场、手动克隆与更新命令 |
-| [docs/USAGE_CN.md](docs/USAGE_CN.md) | 自然语言提示词、微服务示例、多种拓扑演示 |
-| [docs/STYLE_PRESETS_CN.md](docs/STYLE_PRESETS_CN.md) | 内置预设、"从文件学习样式"流程、完整管理命令 |
-| [docs/COMPARISON_CN.md](docs/COMPARISON_CN.md) | 与原生智能体、其他 draw.io skills/工具的对照表 |
-| [skills/drawio-skill/SKILL.md](skills/drawio-skill/SKILL.md) | agent 加载的工作流指南 |
+[Agents365-ai 图表 skill 家族](https://github.com/Agents365-ai) 一员 —— 按场景挑工具：
+
+| Skill | 风格 | 适用场景 |
+|---|---|---|
+| [excalidraw-skill](https://github.com/Agents365-ai/excalidraw-skill) | 手绘 / 草图 | 白板原型、非正式图 |
+| [mermaid-skill](https://github.com/Agents365-ai/mermaid-skill) | 文本驱动、自动布局 | 可嵌入 README、易于版本管理 |
+| [plantuml-skill](https://github.com/Agents365-ai/plantuml-skill) | UML 专精 | CI 流水线里的类图 / 序列图 |
+| [tldraw-skill](https://github.com/Agents365-ai/tldraw-skill) | 白板协作 | 随手画、FigJam 风格 |
 
 ## 💬 社区
 

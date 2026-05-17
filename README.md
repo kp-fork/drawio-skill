@@ -17,7 +17,7 @@
 A skill that turns natural-language descriptions into `.drawio` XML and exports them to PNG / SVG / PDF / JPG via the native draw.io desktop CLI. Works with **Claude Code, Cursor, Copilot, OpenClaw, Codex, Hermes**, and any agent compatible with the [Agent Skills](https://agentskills.io) format.
 
 <p align="center">
-  <img src="assets/workflow.png" width="900" alt="Workflow">
+  <img src="assets/microservices-example.png" width="900" alt="Microservices Architecture — generated from a single natural-language prompt">
 </p>
 
 ## ✨ Highlights
@@ -32,17 +32,13 @@ A skill that turns natural-language descriptions into `.drawio` XML and exports 
 ## 🖼️ Examples
 
 > [!TIP]
-> **Try this prompt** to generate the diagram below:
+> **The hero image above was generated from this single prompt:**
 
 ```
 Create a microservices e-commerce architecture with Mobile/Web/Admin clients,
 API Gateway, Auth/User/Order/Product/Payment services, Kafka message queue,
 Notification service, and User DB / Order DB / Product DB / Redis Cache / Stripe API
 ```
-
-<p align="center">
-  <img src="assets/microservices-example.png" width="800" alt="Microservices Architecture">
-</p>
 
 The skill also routes edges cleanly across different topologies — no lines crossing through shapes:
 
@@ -105,12 +101,13 @@ Also indexed on [SkillsMP](https://skillsmp.com/skills/agents365-ai-drawio-skill
 
 ## ⚡ Quick Start
 
-After installation, just describe what you want:
+After installation, just describe what you want. For example, an ML model:
 
 ```
-Create a microservices e-commerce architecture with API Gateway,
-Auth/User/Order/Product/Payment services, Kafka message queue,
-Notification service, and a separate database per service
+Draw a Transformer encoder-decoder for machine translation: 6-layer encoder
+with self-attention, 6-layer decoder with cross-attention, input embeddings
+(batch × 512 × 768), positional encoding, and a final output projection.
+Annotate tensor shapes between layers and color-code by layer type.
 ```
 
 The skill plans the layout, generates the `.drawio` XML, exports to your chosen format, self-checks the result, and lets you iterate.
@@ -139,6 +136,14 @@ Learn my style from ~/diagrams/brand.drawio as "mybrand"
 ```
 
 The skill extracts colors, shapes, fonts, and edge style, renders a preview, and only saves the preset after you approve. Full preset-management commands in [docs/STYLE_PRESETS.md](docs/STYLE_PRESETS.md).
+
+## 🔄 How it works
+
+<p align="center">
+  <img src="assets/workflow.png" width="700" alt="Internal workflow">
+</p>
+
+Behind the scenes: **check dependencies → plan layout → generate `.drawio` XML → export draft PNG → self-check + auto-fix** (up to 2 rounds) → **show to user → 5-round feedback loop** until approved → **final export**.
 
 ## 🆚 Comparison
 
@@ -170,16 +175,16 @@ The skill extracts colors, shapes, fonts, and edge style, renders a preview, and
 
 Full comparison + key-advantages summary in [docs/COMPARISON.md](docs/COMPARISON.md). _Last audited against competitor READMEs on 2026-05-17 — please open an issue or PR if anything is out of date._
 
-## 📚 Documentation
+## 🔗 Related Skills
 
-| Doc | What's inside |
-|---|---|
-| [docs/INSTALL_CLI.md](docs/INSTALL_CLI.md) | draw.io desktop CLI install recipes for macOS / Windows / Linux |
-| [docs/INSTALL_SKILL.md](docs/INSTALL_SKILL.md) | Plugin marketplace, manual clone, update commands |
-| [docs/USAGE.md](docs/USAGE.md) | Natural-language prompts, microservices walkthrough, topology demos |
-| [docs/STYLE_PRESETS.md](docs/STYLE_PRESETS.md) | Built-in presets, "learn my style from a file" workflow, manage commands |
-| [docs/COMPARISON.md](docs/COMPARISON.md) | Side-by-side tables vs. native agents and other draw.io skills/tools |
-| [skills/drawio-skill/SKILL.md](skills/drawio-skill/SKILL.md) | Workflow guide loaded by the agent |
+Part of the [Agents365-ai diagram-skill family](https://github.com/Agents365-ai) — pick the right tool for the job:
+
+| Skill | Style | Best for |
+|---|---|---|
+| [excalidraw-skill](https://github.com/Agents365-ai/excalidraw-skill) | Hand-drawn / sketchy | Whiteboard mockups, informal diagrams |
+| [mermaid-skill](https://github.com/Agents365-ai/mermaid-skill) | Text-based, auto-layout | README-embeddable, version-control friendly |
+| [plantuml-skill](https://github.com/Agents365-ai/plantuml-skill) | UML-focused | Class / sequence diagrams in CI pipelines |
+| [tldraw-skill](https://github.com/Agents365-ai/tldraw-skill) | Whiteboard collaboration | Casual sketches, FigJam-style boards |
 
 ## 💬 Community
 
